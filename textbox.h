@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 #include "font.h"
+#include "audio.h"
 
 class TextBox
 {
@@ -15,8 +16,10 @@ class TextBox
 		std::string m_caption;
 		std::string m_str;
 		Font *m_font;
+		Audio *m_audio;
 	public:
 		TextBox(const std::string& caption, int w);
+		void addAudio(Audio *audio);
 		void render(int x, int y);
 		bool isFocussed();
 		bool isEnabled();

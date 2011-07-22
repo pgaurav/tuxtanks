@@ -6,6 +6,12 @@ Button::Button(const std::string& caption, const std::string& icon, int w, int h
 	m_enabled = true;
 	m_clicked = false;
 	m_hover = false;
+	m_audio = NULL;
+}
+
+void Button::setAudio(Audio *audio)
+{
+	m_audio = audio;
 }
 
 void Button::render(int x, int y)
@@ -78,6 +84,7 @@ void Button::handleEvents(SDL_Event event)
 		int y = event.button.y;
 		if((x >= m_x && x <= m_x+m_w) && (y >= m_y && y <= m_y+m_h))
 		{
+			if(m_audio) m_audio->playSound("click");
 			m_clicked = true;
 		}
 	}

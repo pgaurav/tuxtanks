@@ -13,21 +13,23 @@ WelcomeAnimation::WelcomeAnimation(void *gamedata, Audio *audio, int w, int h) :
 	m_tank2->setColor(1,0,0);
 	addTexture("background","images/welcome.bmp", m_texhash);
 	m_btnExit = new Button("", "images/exit.bmp", 50, 50);
+	m_btnExit->setAudio(m_audio);
 	m_btnNext = new Button("", "images/next.bmp", 50, 50); 
+	m_btnNext->setAudio(m_audio);
 	m_radio = new RadioButton("Choose a game mode", 200);
 	m_radio->addItem("One player");
 	m_radio->addItem("Two player");
 	m_radio->setChecked("Two player");
+	m_radio->addAudio(m_audio);
 	m_bigfont = new Font("images/mono.ttf", 24);
 	m_smallfont = new Font("images/mono.ttf", 18);
-	m_audio->addMusic("welcomebackground", "audio/background.wav");
 }
 
 void WelcomeAnimation::render()
 {
 	if(m_isMusicPlaying == false)
 	{
-		m_audio->playMusic("welcomebackground");
+		m_audio->playMusic("background");
 		m_isMusicPlaying = true;
 	}
 	m_ang1 = m_ang1 + m_diff1;

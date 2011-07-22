@@ -3,17 +3,20 @@
 IntroAnimation::IntroAnimation(void *gamedata, Audio *audio, int w, int h) : Animation(gamedata, audio, w, h)
 {
 	m_isMusicPlaying = false;
-	m_audio->addMusic("introbackground","audio/background.wav");
 	addTexture("background","images/welcome.bmp", m_texhash);
 	m_font = new Font("images/mono.ttf", 18);
 	m_textbox1 = new TextBox("Player1's name", 200);
+	m_textbox1->addAudio(audio);
 	m_textbox2 = new TextBox("Player2's name", 200);
+	m_textbox2->addAudio(m_audio);
 	m_listbox1 = new ListBox("Player1's weapons", 200, 250);
 	m_listbox2 = new ListBox("Available weapons", 200, 500);
+	m_listbox2->addAudio(m_audio);
 	m_listbox3 = new ListBox("Player2's weapons", 200, 250);
 	m_radiobtn = new RadioButton("Selection mode", 200);
 	m_radiobtn->addItem("Random selection");
 	m_radiobtn->addItem("Manual selection");
+	m_radiobtn->addAudio(m_audio);
 	// start - just for testing
 	for(int i=0; i<10; ++i)
 	{
@@ -41,7 +44,7 @@ void IntroAnimation::render()
 {
 	if(m_isMusicPlaying == false)
 	{
-		m_audio->playMusic("introbackground");
+		m_audio->playMusic("background");
 		m_isMusicPlaying = true;
 	}
 	glColor3f(1,1,1);
@@ -59,10 +62,15 @@ void IntroAnimation::render()
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 	m_btnRand->render(50, m_h - 70);
+	m_btnRand->setAudio(m_audio);
 	m_btnNext->render(m_w-70, m_h-70);
+	m_btnNext->setAudio(m_audio);
 	m_btnExit->render(m_w-140, m_h-70);
+	m_btnExit->setAudio(m_audio);
 	m_btnleft->render(250, 225);
+	m_btnleft->setAudio(m_audio);
 	m_btnright->render(500, 225);
+	m_btnright->setAudio(m_audio);
 	m_textbox1->render(50, 25);
 	m_textbox2->render(m_w - 250, 25);
 	m_listbox1->render(50, 100);

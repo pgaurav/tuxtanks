@@ -61,6 +61,9 @@ int main(int argc, char **argv, char **env)
 	SDL_WM_SetIcon(icon, NULL);
 	// atexit(SDL_Quit);
 	Audio *audio = new Audio();
+	audio->addMusic("background", "audio/background.wav");
+	audio->addSound("click", "audio/click.wav");
+	audio->addSound("keystroke", "audio/keystroke.wav");
 	initGL(w, h);
 	GameData gamedata;
 	Animation *animation[NUM_ANIMATIONS]; 

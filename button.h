@@ -17,8 +17,10 @@ class Button
 		bool m_enabled;
 		bool m_clicked;
 		bool m_hover;
+		Audio *m_audio;
 	public:
 		Button(const std::string& caption, const std::string& icon, int w, int h);
+		void setAudio(Audio *audio);
 		void render(int x, int y);
 		bool isClicked();
 		bool isEnabled();

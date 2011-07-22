@@ -5,6 +5,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 #include "font.h"
+#include "audio.h"
 
 class RadioButton
 {
@@ -17,8 +18,10 @@ class RadioButton
 		int m_curhoveritem;
 		Font *m_font;
 		bool m_enabled;
+		Audio *m_audio;
 	public:
 		RadioButton(const std::string& caption, int w = 200);
+		void addAudio(Audio *audio);
 		void render(int x, int y);
 		void addItem(const std::string& item); 
 		void setChecked(const std::string& item);

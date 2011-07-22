@@ -8,6 +8,12 @@ RadioButton::RadioButton(const std::string& caption, int w)
 	m_curhoveritem = -1;
 	m_font = new Font("images/mono.ttf",18);
 	m_enabled = true;
+	m_audio = NULL;
+}
+
+void RadioButton::addAudio(Audio *audio)
+{
+	m_audio = audio;
 }
 
 void RadioButton::render(int x, int y)
@@ -76,6 +82,7 @@ void RadioButton::handleEvents(SDL_Event event)
 		int y = event.button.y;	
 		if((x >= m_x && x <= m_x+m_w) && (y >= m_y && y <= m_y+m_h))
 		{
+			if(m_audio) m_audio->playSound("click");
 			m_curitem = (y - m_y)/25;
 		}
 	}

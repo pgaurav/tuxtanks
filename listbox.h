@@ -6,6 +6,7 @@
 #include <SDL/SDL_opengl.h>
 #include "font.h"
 #include "texture.h"
+#include "audio.h"
 
 class ListBox
 {
@@ -19,8 +20,10 @@ class ListBox
 		TextureHash m_icons;
 		Font *m_font;
 		bool m_enabled;
+		Audio *m_audio;
 	public:
 		ListBox(const std::string& caption, int w = 200, int h = 0);
+		void addAudio(Audio *audio);
 		void render(int x, int y);
 		void addItem(const std::string& item, const std::string& icon);
 		void addItem(const std::string& item, int textureid);

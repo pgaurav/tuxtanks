@@ -5,6 +5,12 @@ TextBox::TextBox(const std::string& caption, int w = 200) : m_caption(caption), 
 	m_h = 25;
 	m_font = new Font("images/mono.ttf",18);
 	m_enabled = true;
+	m_audio = NULL;
+}
+
+void TextBox::addAudio(Audio *audio)
+{
+	m_audio = audio;
 }
 
 void TextBox::render(int x, int y)
@@ -71,10 +77,12 @@ void TextBox::handleEvents(SDL_Event event)
 		int key = event.key.keysym.sym;
 		if((key >= 32 && key <= 126) && m_str.length() < 18)
 		{
+			if(m_audio) m_audio->playSound("keystroke");
 			m_str = m_str + char(key);
 		}
 		if((key == 8 || key == 127) && m_str.length() != 0)
 		{
+			if(m_audio) m_audio->playSound("keystroke");
 			m_str.erase(m_str.length() - 1, 1);
 		}
 	}
