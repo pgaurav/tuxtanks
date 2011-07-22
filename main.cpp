@@ -13,7 +13,7 @@
 
 void frameDelay()
 {
-	const int tickInterval = 30; 
+	const int tickInterval = 50; 
 	static int nextTick = 0;
 	int curTick = SDL_GetTicks();
 	if(curTick >= nextTick) nextTick = curTick + tickInterval;

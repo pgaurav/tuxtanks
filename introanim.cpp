@@ -42,6 +42,10 @@ IntroAnimation::IntroAnimation(void *gamedata, Audio *audio, int w, int h) : Ani
 
 void IntroAnimation::render()
 {
+	if(m_isAnimating == true)
+	{
+		randomlyAllotWeapons();
+	}
 	if(m_isMusicPlaying == false)
 	{
 		m_audio->playMusic("background");
@@ -84,6 +88,10 @@ void IntroAnimation::render()
 
 int IntroAnimation::handleEvents(SDL_Event event)
 {
+	if(m_isAnimating == true)
+	{
+		return ANIMATION_EVENT_NONE;
+	}
 	m_textbox1->handleEvents(event);
 	m_textbox2->handleEvents(event);
 	m_listbox2->handleEvents(event);
@@ -139,12 +147,15 @@ int IntroAnimation::handleEvents(SDL_Event event)
 	}
 	if(m_btnRand->isEnabled() && m_btnRand->isClicked())
 	{
-		randomlyAllotWeapons();
+		m_isAnimating = true;
 		if(m_textbox1->getText().length() != 0 && m_textbox2->getText().length() != 0) 
 		{
 			m_btnNext->setEnabled(true);
 		}
-		m_btnRand->setEnabled(false);
+		if(m_listbox2->getItemArr().size() == 0) 
+		{
+			m_btnRand->setEnabled(false);
+		}
 	}
 	if(m_btnExit->isClicked())
 	{
@@ -184,10 +195,12 @@ void IntroAnimation::allotWeapon(int chooseturn)
 
 void IntroAnimation::randomlyAllotWeapons()
 {
-	int turn = 0;
+	static int turn = 0;
 	srand(SDL_GetTicks());
-	while(m_listbox2->getItemArr().size() != 0)
+	if(m_listbox2->getItemArr().size() != 0)
 	{
+		m_audio->playSound("click");
+		m_isAnimating = true;
 		int idx = rand() % m_listbox2->getItemArr().size();
 		if(turn == 0)
 		{
@@ -202,6 +215,10 @@ void IntroAnimation::randomlyAllotWeapons()
 			turn = !turn;
 		}
 		m_listbox2->getItemArr().erase(m_listbox2->getItemArr().begin() + idx);
+	}
+	else
+	{
+		m_isAnimating = false;
 	}
 	m_weaponsAlloted = true;
 	m_radiobtn->setEnabled(false);

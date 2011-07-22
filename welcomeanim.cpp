@@ -73,6 +73,10 @@ void WelcomeAnimation::render()
 
 int WelcomeAnimation::handleEvents(SDL_Event event)
 {
+	if(m_isAnimating == true)
+	{
+		return ANIMATION_EVENT_NONE;
+	}
 	m_btnNext->handleEvents(event);
 	m_btnExit->handleEvents(event);
 	m_radio->handleEvents(event);

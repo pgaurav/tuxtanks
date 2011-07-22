@@ -14,8 +14,9 @@ class Animation
 		int m_w, m_h;
 		void *m_gamedata;
 		Audio *m_audio;
+		bool m_isAnimating;
 	public:
-		Animation(void *gamedata, Audio *audio, int w, int h) : m_gamedata(gamedata), m_audio(audio), m_w(w), m_h(h){}
+		Animation(void *gamedata, Audio *audio, int w, int h) : m_gamedata(gamedata), m_audio(audio), m_w(w), m_h(h), m_isAnimating(false){}
 		virtual void render() = 0;
 		virtual int handleEvents(SDL_Event event) = 0;
 		virtual ~Animation(){}
